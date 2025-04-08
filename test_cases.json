@@ -1,3 +1,4 @@
+[
   {
     "input": {
       "user_content": "Can you walk me through how to connect my laptop to this new network?",
@@ -5,3 +6,4 @@
     },
     "expected_range": [0.5, 0.7]
   }
+]
