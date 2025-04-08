@@ -21,6 +21,9 @@ jobs:
       - name: Install latest DoCoreAI
         run: pip install --upgrade docoreai uvicorn
 
+      - name: Install local dependencies
+        run: pip install -r requirements.txt
+
       - name: Start API in background
         run: |
           uvicorn api.main:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
