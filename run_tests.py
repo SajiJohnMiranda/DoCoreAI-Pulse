@@ -5,6 +5,7 @@ import sys
 import os
 from dotenv import load_dotenv
 load_dotenv()
+print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
 
 BASE_URL = "http://localhost:8000"
 TESTCASE_FILE = "test_cases.json"
