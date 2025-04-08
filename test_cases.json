@@ -1,8 +1,9 @@
 [
- {
-  "user_content": "Hey, can you suggest a fun way to spend a weekend?",
-  "role": "Friendly Chatbot",
-  "model_provider": "openai",
-  "model_name": "gpt-3.5-turbo"
-}
+  {
+    "input": {
+      "user_content": "Hey, can you suggest a fun way to spend a weekend?",
+      "role": "Friendly Chatbot"
+    },
+    "expected_range": [0.5, 0.7]
+  }
 ]
