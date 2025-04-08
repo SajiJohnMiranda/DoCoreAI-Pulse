@@ -2,6 +2,7 @@ import requests
 import time
 import json
 import sys
+import os
 
 BASE_URL = "http://localhost:8000"
 TESTCASE_FILE = "test_cases.json"
