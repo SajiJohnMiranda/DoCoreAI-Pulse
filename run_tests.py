@@ -42,6 +42,14 @@ failures = 0
 
 for i, test in enumerate(testcases, 1):
     print(f"\n▶️ Running Test Case #{i}")
+    
+    # Inject token dynamically
+    provider = test["input"].get("model_provider", "openai")
+    if provider.lower() == "openai":
+        test["input"]["token"] = OPENAI_API_KEY
+    elif provider.lower() == "groq":
+        test["input"]["token"] = GROQ_API_KEY
+        
     try:
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
         response = requests.post(f"{BASE_URL}/intelligence_profiler_advanced", json=test["input"])
