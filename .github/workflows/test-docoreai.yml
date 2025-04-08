@@ -23,6 +23,11 @@ jobs:
 
       - name: Install local dependencies
         run: pip install -r requirements.txt
+      
+      - name: Create .env from GitHub Secrets
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> .env        
 
       - name: Start API in background
         run: |
