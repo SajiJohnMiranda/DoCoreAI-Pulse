@@ -1,4 +1,9 @@
-{
-  "user_content": "Can you walk me through how to connect my laptop to this new network?",
-  "role": "Technical Support Agent"
-}
+[
+  {
+    "input": {
+      "user_content": "Can you walk me through how to connect my laptop to this new network?",
+      "role": "Technical Support Agent"
+    },
+    "expected_range": [0.5, 0.7]
+  }
+]
