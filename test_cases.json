@@ -1,0 +1,18 @@
+[
+  {
+    "input": {
+      "user_content": "Solve the equation: 3x + 5 = 20. Show the step-by-step solution.",
+      "role": "Mathematics Professor",
+      "manual_mode": false
+    },
+    "expected_temperature_range": [0.2, 0.3]
+  },
+  {
+    "input": {
+      "user_content": "Write a haiku about the moon.",
+      "role": "Poet",
+      "manual_mode": false
+    },
+    "expected_temperature_range": [0.7, 0.9]
+  }
+]
