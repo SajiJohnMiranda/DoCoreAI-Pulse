@@ -38,6 +38,8 @@ failures = 0
 for i, test in enumerate(testcases, 1):
     print(f"\n▶️ Running Test Case #{i}")
     try:
+        print("📨 Input Sent:", json.dumps(test["input"], indent=2))
+
         response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"])
         response.raise_for_status()
         result = response.json()
