@@ -1,7 +1,8 @@
 [
- {
+  {
+    "input": {
       "user_content": "Can you walk me through how to connect my laptop to this new network?",
       "role": "Technical Support Agent"
     }
-
+  }
 ]
