@@ -15,18 +15,6 @@ TESTCASE_FILE = os.path.join(BASE_DIR, "test_cases.json")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Inject tokens into testcases
-for test in testcases:
-    provider = test["input"].get("model_provider", "openai")
-    if provider == "openai":
-        test["input"]["token"] = OPENAI_API_KEY
-    elif provider == "groq":
-        test["input"]["token"] = GROQ_API_KEY
-
-    # Optional fallback
-    if "model_name" not in test["input"]:
-        test["input"]["model_name"] = "gpt-3.5-turbo"
-
 # Wait until server is ready
 print("⏳ Waiting for FastAPI server...")
 for _ in range(10):
