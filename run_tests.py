@@ -27,7 +27,7 @@ for _ in range(10):
             print("✅ Server is ready.")
             print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
             print("🔍 MODEL_NAME:", os.getenv("MODEL_NAME"))  # DEBUG 
-            print("🔍 OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))  # DEBUG 
+            #print("🔍 OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))  # DEBUG 
             break
     except Exception:
         time.sleep(2)
@@ -52,10 +52,12 @@ for i, test in enumerate(testcases, 1):
     try:
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
         response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"])
+        print("📦 Full Response:", response.text)
+
         response.raise_for_status()
         result = response.json()
 
-        print("📦 Full Response:", json.dumps(result, indent=2))
+        print("📦 Full result:", json.dumps(result, indent=2))
 
         # Safely extract and parse the response string
         raw_response = result.get("optimal_response", {}).get("response", "")
