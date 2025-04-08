@@ -55,9 +55,10 @@ for i, test in enumerate(testcases, 1):
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
         headers = {"Content-Type": "application/json"}
         response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"], headers=headers)
-        print("📦 Full Response:", response.text)
-
+        print("📦 Full Response:", response)
+        print("response.raise_for_status():", response.raise_for_status())
         response.raise_for_status()
+        print("response.json():", response.json())
         result = response.json()
 
         print("📦 Full result:", json.dumps(result, indent=2))
