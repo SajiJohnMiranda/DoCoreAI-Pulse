@@ -42,7 +42,7 @@ for i, test in enumerate(testcases, 1):
         response.raise_for_status()
         result = response.json()
 
-        profiler_data = result.get("DoCoreAI-Dynamic-Temperature-Profiler", {})
+        profiler_data = result.get("optimal_response", {})
         actual_temp = profiler_data.get("temperature")
 
         if actual_temp is None:
