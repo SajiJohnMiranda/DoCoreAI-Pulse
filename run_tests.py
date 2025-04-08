@@ -42,13 +42,25 @@ for i, test in enumerate(testcases, 1):
         response.raise_for_status()
         result = response.json()
 
-        print("📦 Full Response:", json.dumps(result, indent=2))  # 👈 Add this line
-        
-        profiler_data = result.get("optimal_response", {})
-        actual_temp = profiler_data.get("temperature")
+        print("📦 Full Response:", json.dumps(result, indent=2))
 
+        # Safely extract and parse the response string
+        raw_response = result.get("optimal_response", {}).get("response", "")
+        if not raw_response:
+            print("❌ Response field is missing or empty.")
+            failures += 1
+            continue
+
+        try:
+            parsed_response = json.loads(raw_response)
+        except json.JSONDecodeError as e:
+            print(f"❌ Failed to parse response string as JSON: {e}")
+            failures += 1
+            continue
+
+        actual_temp = parsed_response.get("temperature")
         if actual_temp is None:
-            print("❌ Temperature field not found in response.")
+            print("❌ Temperature field not found in parsed response.")
             failures += 1
             continue
 
