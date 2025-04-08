@@ -3,12 +3,29 @@ import time
 import json
 import sys
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 BASE_URL = "http://localhost:8000"
 TESTCASE_FILE = "test_cases.json"
 
 BASE_DIR = os.path.dirname(__file__)
 TESTCASE_FILE = os.path.join(BASE_DIR, "test_cases.json")
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# Inject tokens into testcases
+for test in testcases:
+    provider = test["input"].get("model_provider", "openai")
+    if provider == "openai":
+        test["input"]["token"] = OPENAI_API_KEY
+    elif provider == "groq":
+        test["input"]["token"] = GROQ_API_KEY
+
+    # Optional fallback
+    if "model_name" not in test["input"]:
+        test["input"]["model_name"] = "gpt-3.5-turbo"
 
 # Wait until server is ready
 print("⏳ Waiting for FastAPI server...")
@@ -39,7 +56,7 @@ for i, test in enumerate(testcases, 1):
     print(f"\n▶️ Running Test Case #{i}")
     try:
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
-        response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"])
+        response = requests.post(f"{BASE_URL}/intelligence_profiler_advanced", json=test["input"])
         response.raise_for_status()
         result = response.json()
 
