@@ -5,7 +5,7 @@ import sys
 import os
 from dotenv import load_dotenv
 load_dotenv()
-print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
+
 
 BASE_URL = "http://localhost:8000"
 TESTCASE_FILE = "test_cases.json"
@@ -25,6 +25,7 @@ for _ in range(10):
         r = requests.get(f"{BASE_URL}/docs")
         if r.status_code == 200:
             print("✅ Server is ready.")
+            print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
             break
     except Exception:
         time.sleep(2)
