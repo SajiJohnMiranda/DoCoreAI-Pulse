@@ -2,7 +2,7 @@ name: DoCoreAI PyPI Test
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 2 * * *"  # every day at 2:00 AM UTC
   workflow_dispatch:
 
 jobs:
@@ -23,9 +23,12 @@ jobs:
 
       - name: Start API in background
         run: |
-          uvicorn docoreai.main:app --port 8000 > uvicorn.log 2>&1 &
-
+          uvicorn docoreai.main:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
           sleep 10
 
       - name: Run test cases
         run: python run_tests.py
+
+      - name: Show uvicorn log if test fails
+        if: failure()
+        run: cat uvicorn.log
