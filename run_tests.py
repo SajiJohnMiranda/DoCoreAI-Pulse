@@ -4,7 +4,7 @@ import json
 import sys
 
 BASE_URL = "http://localhost:8000"
-TESTCASE_FILE = "testcases.json"
+TESTCASE_FILE = "test_cases.json"
 
 # Wait until server is ready
 print("⏳ Waiting for FastAPI server...")
