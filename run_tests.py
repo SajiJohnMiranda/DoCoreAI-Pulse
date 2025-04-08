@@ -6,6 +6,9 @@ import sys
 BASE_URL = "http://localhost:8000"
 TESTCASE_FILE = "test_cases.json"
 
+BASE_DIR = os.path.dirname(__file__)
+TESTCASE_FILE = os.path.join(BASE_DIR, "test_cases.json")
+
 # Wait until server is ready
 print("⏳ Waiting for FastAPI server...")
 for _ in range(10):
