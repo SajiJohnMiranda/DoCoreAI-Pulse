@@ -26,6 +26,8 @@ for _ in range(10):
         if r.status_code == 200:
             print("✅ Server is ready.")
             print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
+            print("🔍 MODEL_NAME:", os.getenv("MODEL_NAME"))  # DEBUG 
+            print("🔍 OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))  # DEBUG 
             break
     except Exception:
         time.sleep(2)
