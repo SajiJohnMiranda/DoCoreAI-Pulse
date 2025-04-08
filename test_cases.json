@@ -1,9 +1,4 @@
-[
-  {
-    "input": {
-      "user_content": "Hey, can you suggest a fun way to spend a weekend?",
-      "role": "Friendly Chatbot"
-    },
-    "expected_range": [0.5, 0.7]
-  }
-]
+{
+  "user_content": "Can you walk me through how to connect my laptop to this new network?",
+  "role": "Technical Support Agent"
+}
