@@ -42,6 +42,8 @@ for i, test in enumerate(testcases, 1):
         response.raise_for_status()
         result = response.json()
 
+        print("📦 Full Response:", json.dumps(result, indent=2))  # 👈 Add this line
+        
         profiler_data = result.get("optimal_response", {})
         actual_temp = profiler_data.get("temperature")
 
