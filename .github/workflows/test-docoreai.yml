@@ -26,10 +26,10 @@ jobs:
       
       - name: Create .env from GitHub Secrets
         run: |
-          echo "OPENAI_API_KEY='${{ secrets.OPENAI_API_KEY }}'" >> .env
-          echo "GROQ_API_KEY='${{ secrets.GROQ_API_KEY }}'" >> .env
-          echo "MODEL_PROVIDER='openai'" >> .env
-          echo "MODEL_NAME='gpt-3.5-turbo'" >> .env
+          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
+          echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
+          echo MODEL_PROVIDER=openai >> .env
+          echo MODEL_NAME=gpt-3.5-turbo >> .env
       
 
       - name: Start API in background
