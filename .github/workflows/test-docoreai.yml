@@ -18,53 +18,28 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install latest DoCoreAI
-        run: pip install --upgrade docoreai uvicorn python-dotenv
+      - name: Install DoCoreAI and dependencies
+        run: |
+          pip install --upgrade docoreai uvicorn python-dotenv
+          pip install -r requirements.txt
 
-      - name: Install local dependencies
-        run: pip install -r requirements.txt
-      
-      - name: Create .env from GitHub Secrets
+      - name: Create .env file
         run: |
-          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
-          echo MODEL_PROVIDER=openai >> .env
-          echo MODEL_NAME=gpt-3.5-turbo >> .env
+          mkdir -p test_env  # working test dir
+          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> test_env/.env
+          echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> test_env/.env
+          echo MODEL_PROVIDER=openai >> test_env/.env
+          echo MODEL_NAME=gpt-3.5-turbo >> test_env/.env
 
-      - name: 🔍 Show directory tree for debugging
+      - name: Start API server in background
+        env:
+          DOTENV_FILE: test_env/.env
         run: |
-          echo "Current working directory:"
-          pwd
-          echo "Directory tree:"
-          find . -type d
-          echo "Looking for model.py:"
-          find . -name "model.py"
-          
-
-      - name: 🧭 Check current dir and contents
-        run: |
-          pwd
-          ls -la
-          echo "--- Checking DoCoreAI contents ---"
-          ls -la DoCoreAI || true
-          echo "--- Checking DoCoreAI/docore_ai ---"
-          ls -la DoCoreAI/docore_ai || true
-
-
-      - name: ⬇️ Clone DoCoreAI repo
-        run: |
-          git clone https://github.com/SajiJohnMiranda/DoCoreAI.git
-      
-      - name: Move .env into DoCoreAI/docore_ai
-        run: |
-          mv .env DoCoreAI/docore_ai/.env
-    
-      - name: Start API in background
-        run: |
+          cp test_env/.env $(python -c "import docore_ai; print(docore_ai.__path__[0])")/.env
           uvicorn api.main:app --host 127.0.0.1 --port 8000 > uvicorn.log 2>&1 &
           sleep 10
 
-      - name: Run test cases
+      - name: Run tests
         run: python run_tests.py
 
       - name: Show uvicorn log if test fails
