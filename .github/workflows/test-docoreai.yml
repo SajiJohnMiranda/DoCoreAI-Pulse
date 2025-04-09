@@ -30,7 +30,10 @@ jobs:
           echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
           echo MODEL_PROVIDER=openai >> .env
           echo MODEL_NAME=gpt-3.5-turbo >> .env
-      
+
+      - name: Move .env to docore_ai directory
+        run: mv .env docore_ai/.env
+  
       - name: 🔍 Check working directory and files
         run: |
           pwd
