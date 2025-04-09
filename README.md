@@ -1,4 +1,4 @@
-# 🧪 DoCoreAI Test Runner
+# 🧪 DoCoreAI Pulse
 Welcome to the official test runner for DoCoreAI — a framework that dynamically optimizes LLM responses based on intelligence parameters like reasoning, creativity, precision, and temperature.
 
 This repo helps you evaluate the performance of intelligence_profiler — a single-step API endpoint from DoCoreAI — by comparing generated temperature values against expected ranges for diverse test prompts.
@@ -23,8 +23,8 @@ This repo helps you evaluate the performance of intelligence_profiler — a sing
 
 1. Clone the Repo  
 ```
-git clone https://github.com/your-org/DoCoreAI-Test-Runner.git
-cd DoCoreAI-Test-Runner
+git clone https://github.com/your-org/DoCoreAI-Pulse.git
+cd DoCoreAI-Pulse
 ```
 2. Install Dependencies  
 ```
