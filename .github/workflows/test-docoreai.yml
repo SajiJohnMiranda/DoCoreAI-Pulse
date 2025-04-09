@@ -31,19 +31,18 @@ jobs:
           echo MODEL_PROVIDER=openai >> .env
           echo MODEL_NAME=gpt-3.5-turbo >> .env
 
-      - name: Move .env to docore_ai directory
-        run: mv .env docore_ai/.env
-  
-      - name: 🔍 Check working directory and files
+      - name: 🧭 Check current dir and contents
         run: |
           pwd
           ls -la
+          echo "--- Checking DoCoreAI contents ---"
+          ls -la DoCoreAI || true
+          echo "--- Checking DoCoreAI/docore_ai ---"
+          ls -la DoCoreAI/docore_ai || true
 
-      - name: 📄 Show contents of .env (Secrets Redacted)
+      - name: Move .env to DoCoreAI/docore_ai
         run: |
-          echo "----- .env file content -----"
-          sed -E 's/(=.*)/=***REDACTED***/' .env
-          echo "-----------------------------"
+          mv .env DoCoreAI/docore_ai/.env
     
       - name: Start API in background
         run: |
