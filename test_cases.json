@@ -1,8 +1,37 @@
-[
+  [
+   {
+    "input": {
+      "user_content": "What are the five largest countries by land area?",
+      "role": "Data Analyst"
+    },
+    "expected_range": [0.1, 0.3]
+  },
   {
     "input": {
-      "user_content": "Can you walk me through how to connect my laptop to this new network?",
-      "role": "Technical Support Agent"
-    }
+      "user_content": "Invent a brand-new type of sport and describe its rules.",
+      "role": "Creative Thinker"
+    },
+    "expected_range": [0.9, 1.0]
+  },
+  {
+    "input": {
+      "user_content": "Solve the equation: 3x + 5 = 20. Show the step-by-step solution.",
+      "role": "Mathematics Professor"
+    },
+    "expected_range": [0.2, 0.3]
+  },
+  {
+    "input": {
+      "user_content": "What is the meaning of life from different philosophical perspectives?",
+      "role": "Philosophy Professor"
+    },
+    "expected_range": [0.8, 1.0]
+  },
+  {
+    "input": {
+     "user_content": "Hey, can you suggest a fun way to spend a weekend?",
+     "role": "Friendly Chatbot"
+  },
+      "expected_range": [0.5, 0.7]
   }
 ]
