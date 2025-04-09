@@ -56,7 +56,8 @@ for i, test in enumerate(testcases, 1):
         expected_range = test["expected_range"]
         print(f"🔍 Expected Temperature Range: {expected_range}")
         headers = {"content-type": "application/json"}
-        response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"], headers=headers)
+        payload  = {**test["input"], "show_token_usage": False} #set not to display token usage
+        response = requests.post(f"{BASE_URL}/intelligence_profiler", json=payload , headers=headers)
         #print("📦 Full Response:", response)
         #print("response.raise_for_status():", response.raise_for_status())
         #response.raise_for_status()
