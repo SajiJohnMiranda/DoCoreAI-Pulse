@@ -53,15 +53,16 @@ for i, test in enumerate(testcases, 1):
        
     try:
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
+        print(f"🔍 Expected Temperature Range: test["expected_range"]")
         headers = {"content-type": "application/json"}
         response = requests.post(f"{BASE_URL}/intelligence_profiler", json=test["input"], headers=headers)
-        print("📦 Full Response:", response)
+        #print("📦 Full Response:", response)
         #print("response.raise_for_status():", response.raise_for_status())
         #response.raise_for_status()
-        print("print response.json():", response.json())
+        #print("print response.json():", response.json())
         result = response.json()
 
-        print("📦 Print Full result:", json.dumps(result, indent=2))
+        print("📦 Full result:", json.dumps(result, indent=2))
 
         # Safely extract and parse the response string
         raw_response = result.get("optimal_response", {}).get("response", "")
