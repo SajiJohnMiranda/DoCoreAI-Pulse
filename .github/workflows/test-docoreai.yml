@@ -50,7 +50,12 @@ jobs:
           echo "--- Checking DoCoreAI/docore_ai ---"
           ls -la DoCoreAI/docore_ai || true
 
-      - name: Move .env to DoCoreAI/docore_ai
+
+      - name: ⬇️ Clone DoCoreAI repo
+        run: |
+          git clone https://github.com/SajiJohnMiranda/DoCoreAI.git
+      
+      - name: Move .env into DoCoreAI/docore_ai
         run: |
           mv .env DoCoreAI/docore_ai/.env
     
