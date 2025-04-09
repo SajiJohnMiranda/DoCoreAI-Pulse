@@ -11,12 +11,13 @@ This repo helps you evaluate the performance of intelligence_profiler — a sing
 - Prints a clean report with ✅ passes and ❌ failures.
 
 ## 📂 Folder Structure
+```
 .
 ├── run_tests.py          # Main test runner
 ├── test_cases.json       # Test prompts + expected temperature ranges
 ├── .env                  # API keys and model info (not committed)
 └── ...
-
+```
 
 ## ⚙️ Setup
 
