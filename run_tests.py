@@ -50,7 +50,7 @@ failures = 0
 
 for i, test in enumerate(testcases, 1):
     print(f"\n▶️ Running Test Case #{i}")
-       
+    time.sleep(2)    
     try:
         print("📨 Input Sent:", json.dumps(test["input"], indent=2))
         expected_range = test["expected_range"]
