@@ -59,7 +59,7 @@ MODEL_NAME=gpt-3.5-turbo
 ```
 uvicorn api.main:app --reload
 ```
-in a new window
+run in a new terminal window
 ```
 python run_tests.py
 ```
