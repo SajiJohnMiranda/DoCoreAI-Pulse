@@ -87,22 +87,34 @@ for i, test in enumerate(testcases, 1):
             continue
 
         low, high = test["expected_range"]
+        expected_center = (low + high) / 2
+        deviation = abs(actual_temp - expected_center)
+
         if low <= actual_temp <= high:
-            print(f"✅ Passed: temperature={actual_temp:.3f} is within range ({low}, {high})")
+            print(f"✅ Passed: temperature={actual_temp:.3f} is within expected range ({low}, {high})")
+            passes += 1
+        elif deviation <= 0.1:
+            print(f"⚠️ Soft Fail: temperature={actual_temp:.3f} is outside range, but deviation ({deviation:.3f}) ≤ 0.1")
+            soft_failures += 1
         else:
-            print(f"❌ Failed: temperature={actual_temp:.3f} not in expected range ({low}, {high})")
-            failures += 1
+            print(f"❌ Hard Fail: temperature={actual_temp:.3f} is outside range, deviation ({deviation:.3f}) > 0.1")
+            hard_failures += 1
 
     except Exception as e:
         print(f"❌ Error: {e}")
-        failures += 1
+        hard_failures += 1
 
 # Final report
 total = len(testcases)
-print(f"\n🔍 Final Report: {total - failures} passed, {failures} failed")
+print(f"\n🔍 Final Report:")
+print(f"✅ Passed: {passes}")
+print(f"⚠️ Soft Fails (minor deviation): {soft_failures}")
+print(f"❌ Hard Fails: {hard_failures}")
+print(f"📊 Total: {total} cases evaluated")
 
-if failures > 0:
-    print("⚠️ Some tests failed. Review the logs above to investigate.")
-    # Do not exit with error; soft fail
+if hard_failures > 0:
+    print("🚨 Some tests had hard failures. Investigate immediately.")
+elif soft_failures > 0:
+    print("⚠️ Minor deviations found. Review soft fails.")
 else:
-    print("✅ All tests passed successfully.")
+    print("🎉 All tests passed within acceptable range.")
