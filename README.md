@@ -40,7 +40,7 @@ No need for local setup. You can run all tests directly inside GitHub Actions wi
 ### Option 2:
 1. Clone the Repo  
 ```
-git clone https://github.com/your-org/DoCoreAI-Pulse.git
+git clone https://github.com/SajiJohnMiranda/DoCoreAI-Pulse.git
 cd DoCoreAI-Pulse
 ```
 2. Install Dependencies  
