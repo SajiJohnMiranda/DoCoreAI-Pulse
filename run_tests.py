@@ -100,7 +100,7 @@ for i, test in enumerate(testcases, 1):
             print(f"⚠️ Soft Fail: temperature={actual_temp:.3f} is outside range, but deviation ({deviation:.1f}) ≤ 0.1")
             soft_failures += 1
         else:
-            print(f"❌ Hard Fail: temperature={actual_temp:.1f} is outside range, deviation ({deviation:.1f}) ≥ 0.1")
+            print(f"❌ Hard Fail: temperature={actual_temp:.1f} is outside range, deviation ({deviation:.1f}) > 0.1")
             hard_failures += 1
 
     except Exception as e:
