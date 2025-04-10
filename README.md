@@ -21,7 +21,7 @@ This repo helps you evaluate the performance of intelligence_profiler — a sing
 
 ## ⚙️ Setup [**Optimized for ChatGPT · Expanding to More LLMs Soon**]
 ### Option 1: Test DoCoreAI in 1 Minute — Right on GitHub!
-No need for local setup. You can run all tests directly inside GitHub Actions with just a few clicks.
+**No need for local setup**. You can run all tests directly inside GitHub Actions with just a few clicks.
 
 ✅ Just follow these simple steps:  
 1. Fork this repository (top-right corner → Fork).  
