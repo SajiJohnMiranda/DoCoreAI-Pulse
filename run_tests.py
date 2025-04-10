@@ -90,7 +90,8 @@ for i, test in enumerate(testcases, 1):
 
         low, high = test["expected_range"]
         expected_center = (low + high) / 2
-        deviation = abs(actual_temp - expected_center)
+        deviation = min(abs(actual_temp - low), abs(actual_temp - high))  
+
 
         if low <= actual_temp <= high:
             print(f"✅ Passed: temperature={actual_temp:.3f} is within expected range ({low}, {high})")
