@@ -20,7 +20,24 @@ This repo helps you evaluate the performance of intelligence_profiler — a sing
 ```
 
 ## ⚙️ Setup
+### Option 1: Test DoCoreAI in 1 Minute — Right on GitHub!
+No need for local setup. You can run all tests directly inside GitHub Actions with just a few clicks.
 
+✅ Just follow these simple steps:  
+1. Fork this repository (top-right corner → Fork).  
+2. Go to your fork → Settings → Secrets and variables → Actions.  
+3. Click New repository secret:  
+- Name: OPENAI_API_KEY  
+- Value: Your OpenAI secret key  
+- Then click Add secret.  
+4. Now, go to the Actions tab in your fork.  
+5. If prompted, click "I understand my workflows" → Enable workflows.  
+6. Under "All Workflows", click on "DoCoreAI PyPI Test" (our sample test workflow).  
+7. Click "Run workflow" → Choose main branch → Hit Run.  
+8. Wait a few seconds for the test to begin.  
+9. Once it turns green ✅, click into it → Run tests → View live execution of each test case.  
+
+### Option 2:
 1. Clone the Repo  
 ```
 git clone https://github.com/your-org/DoCoreAI-Pulse.git
