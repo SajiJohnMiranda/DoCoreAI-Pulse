@@ -94,10 +94,10 @@ for i, test in enumerate(testcases, 1):
 
 
         if low <= actual_temp <= high:
-            print(f"✅ Passed: temperature={actual_temp:.3f} is within expected range ({low}, {high})")
+            print(f"✅ Passed: temperature={actual_temp:.1f} is within expected range ({low}, {high})")
             passes += 1
         elif deviation <= 0.1:
-            print(f"⚠️ Soft Fail: temperature={actual_temp:.3f} is outside range, but deviation ({deviation:.1f}) ≤ 0.1")
+            print(f"⚠️ Soft Fail: temperature={actual_temp:.1f} is outside range, but deviation ({deviation:.1f}) ≤ 0.1")
             soft_failures += 1
         else:
             print(f"❌ Hard Fail: temperature={actual_temp:.1f} is outside range, deviation ({deviation:.1f}) > 0.1")
