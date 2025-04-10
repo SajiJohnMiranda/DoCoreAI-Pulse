@@ -56,6 +56,13 @@ MODEL_NAME=gpt-3.5-turbo
 ```
 
 4. Start the DoCoreAI Server
+```
+uvicorn api.main:app --reload
+```
+in a new window
+```
+python run_tests.py
+```
 
 Make sure the /intelligence_profiler endpoint is running locally at http://localhost:8000.
 
