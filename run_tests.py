@@ -50,6 +50,7 @@ except Exception as e:
 passes = 0
 soft_failures = 0
 hard_failures = 0
+failures = 0
 
 for i, test in enumerate(testcases, 1):
     print(f"\n▶️ Running Test Case #{i}")
