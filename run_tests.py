@@ -2,6 +2,7 @@ import requests
 import time
 import json
 import sys
+import re
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -75,6 +76,17 @@ for i, test in enumerate(testcases, 1):
             failures += 1
             continue
 
+        # Clean up if response is wrapped in Markdown-style code block for gemma model outputs
+        if raw_response.strip().startswith("```"):
+            # Use regex to extract JSON from inside the code block
+            match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", raw_response, re.DOTALL)
+            if match:
+                raw_response = match.group(1).strip()
+            else:
+                print("❌ Could not extract valid JSON from code block.")
+                failures += 1
+                continue
+        
         try:
             parsed_response = json.loads(raw_response)
         except json.JSONDecodeError as e:
