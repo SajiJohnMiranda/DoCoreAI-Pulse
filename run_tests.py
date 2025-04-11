@@ -76,7 +76,7 @@ for i, test in enumerate(testcases, 1):
             print("❌ Response field is missing or empty.")
             failures += 1
             continue
-
+        
         # Clean up if response is wrapped in Markdown-style code block for gemma model outputs
         if MODEL_PROVIDER == 'groq' and raw_response.strip().startswith("```"):
             # Use regex to extract JSON from inside the code block
@@ -88,35 +88,31 @@ for i, test in enumerate(testcases, 1):
                 failures += 1
                 continue
         
+        # Try parsing the response as JSON
         try:
             parsed_response = json.loads(raw_response)
+            # First, try to get temperature from parsed JSON (preferred way)
+            actual_temp = parsed_response.get("intelligence_profile", {}).get("temperature")
         except json.JSONDecodeError as e:
             print(f"❌ Failed to parse response string as JSON: {e}")
-            failures += 1
-            continue
-
-        #actual_temp = parsed_response.get("temperature")
-        # Step 2: Reverse search for the last temperature value
-        match = re.search(r'"temperature"\s*:\s*([0-9.]+)', raw_response[::-1])  # Search backwards
+            actual_temp = None  # fallback to reverse search
         
-        if match:
-            # Reverse the captured number string to get the actual float
-            temperature_str = match.group(1)[::-1]
-            try:
-                actual_temp = float(temperature_str)
-            except ValueError:
-                print(f"❌ Found temperature but failed to parse it as float: {temperature_str}")
+        # If temperature not found via JSON, use regex fallback
+        if actual_temp is None:
+            match = re.search(r'"temperature"\s*:\s*([0-9.]+)', raw_response[::-1])
+            if match:
+                temperature_str = match.group(1)[::-1]
+                try:
+                    actual_temp = float(temperature_str)
+                    # print("✅ Temperature recovered via reverse search fallback.")
+                except ValueError:
+                    print(f"❌ Found temperature but failed to parse it as float: {temperature_str}")
+                    failures += 1
+                    continue
+            else:
+                print("❌ Temperature field not found in raw response.")
                 failures += 1
                 continue
-        else:
-            print("❌ Temperature field not found in raw response.")
-            failures += 1
-            continue
-        
-        if actual_temp is None:
-            print("❌ Temperature field not found in parsed response.")
-            failures += 1
-            continue
 
         low, high = test["expected_range"]
         expected_center = (low + high) / 2
