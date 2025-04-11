@@ -78,7 +78,7 @@ for i, test in enumerate(testcases, 1):
             continue
 
         # Clean up if response is wrapped in Markdown-style code block for gemma model outputs
-        if raw_response.strip().startswith("```"):
+        if MODEL_PROVIDER = 'groq' raw_response.strip().startswith("```"):
             # Use regex to extract JSON from inside the code block
             match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", raw_response, re.DOTALL)
             if match:
