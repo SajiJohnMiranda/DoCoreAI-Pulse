@@ -1,4 +1,3 @@
-import requests
 import time
 import json
 import sys
@@ -27,58 +26,12 @@ for _ in range(10):
         if r.status_code == 200:
             print("✅ Server is ready.")
             print("🔍 MODEL_PROVIDER:", os.getenv("MODEL_PROVIDER"))  # DEBUG
-            print("🔍 MODEL_NAME:", os.getenv("MODEL_NAME"))  # DEBUG 
-            print(f"Actual OPENAI_API_KEY key length: {len(OPENAI_API_KEY)}")
-
-            #print("🔍 OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))  # DEBUG 
-            break
-    except Exception:
-        time.sleep(2)
-else:
-    print("❌ Server did not start in time.")
-    sys.exit(1)
-
-# Load test cases
-try:
-    with open(TESTCASE_FILE, "r") as f:
-        testcases = json.load(f)
-except Exception as e:
-    print(f"❌ Failed to load {TESTCASE_FILE}: {e}")
-    sys.exit(1)
-
-# Run test cases
-passes = 0
-soft_failures = 0
-hard_failures = 0
-failures = 0
-
-for i, test in enumerate(testcases, 1):
-    print(f"\n▶️ Running Test Case #{i}")
-    time.sleep(2)    
-    try:
-        print("📨 Input Sent:", json.dumps(test["input"], indent=2))
-        expected_range = test["expected_range"]
-        print(f"🔍 Expected Temperature Range: {expected_range}")
-        headers = {"content-type": "application/json"}
-        payload  = {**test["input"], "show_token_usage": False} #set not to display token usage
-        response = requests.post(f"{BASE_URL}/intelligence_profiler", json=payload , headers=headers)
-        #print("📦 Full Response:", response)
-        #print("response.raise_for_status():", response.raise_for_status())
-        #response.raise_for_status()
-        #print("print response.json():", response.json())
-        result = response.json()
-
-        print("📦 Full result:", json.dumps(result, indent=2))
-
-        # Safely extract and parse the response string
-        raw_response = result.get("optimal_response", {}).get("response", "")
-        if not raw_response:
-            print("❌ Response field is missing or empty.")
+@@ -75,49 +76,60 @@
             failures += 1
             continue
-        
+
         # Clean up if response is wrapped in Markdown-style code block for gemma model outputs
-        if MODEL_PROVIDER == 'groq' and raw_response.strip().startswith("```"):
+        if raw_response.strip().startswith("```"):
             # Use regex to extract JSON from inside the code block
             match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", raw_response, re.DOTALL)
             if match:
@@ -88,31 +41,18 @@ for i, test in enumerate(testcases, 1):
                 failures += 1
                 continue
         
-        # Try parsing the response as JSON
         try:
             parsed_response = json.loads(raw_response)
-            # First, try to get temperature from parsed JSON (preferred way)
-            actual_temp = parsed_response.get("intelligence_profile", {}).get("temperature")
         except json.JSONDecodeError as e:
             print(f"❌ Failed to parse response string as JSON: {e}")
-            actual_temp = None  # fallback to reverse search
-        
-        # If temperature not found via JSON, use regex fallback
+            failures += 1
+            continue
+
+        actual_temp = parsed_response.get("temperature")
         if actual_temp is None:
-            match = re.search(r'"temperature"\s*:\s*([0-9.]+)', raw_response[::-1])
-            if match:
-                temperature_str = match.group(1)[::-1]
-                try:
-                    actual_temp = float(temperature_str)
-                    # print("✅ Temperature recovered via reverse search fallback.")
-                except ValueError:
-                    print(f"❌ Found temperature but failed to parse it as float: {temperature_str}")
-                    failures += 1
-                    continue
-            else:
-                print("❌ Temperature field not found in raw response.")
-                failures += 1
-                continue
+            print("❌ Temperature field not found in parsed response.")
+            failures += 1
+            continue
 
         low, high = test["expected_range"]
         expected_center = (low + high) / 2
