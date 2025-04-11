@@ -95,7 +95,24 @@ for i, test in enumerate(testcases, 1):
             failures += 1
             continue
 
-        actual_temp = parsed_response.get("temperature")
+        #actual_temp = parsed_response.get("temperature")
+        # Step 2: Reverse search for the last temperature value
+        match = re.search(r'"temperature"\s*:\s*([0-9.]+)', raw_response[::-1])  # Search backwards
+        
+        if match:
+            # Reverse the captured number string to get the actual float
+            temperature_str = match.group(1)[::-1]
+            try:
+                actual_temp = float(temperature_str)
+            except ValueError:
+                print(f"❌ Found temperature but failed to parse it as float: {temperature_str}")
+                failures += 1
+                continue
+        else:
+            print("❌ Temperature field not found in raw response.")
+            failures += 1
+            continue
+        
         if actual_temp is None:
             print("❌ Temperature field not found in parsed response.")
             failures += 1
