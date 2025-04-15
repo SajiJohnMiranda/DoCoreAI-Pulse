@@ -79,6 +79,8 @@ Example output:
 
 🔍 Final Report: 4 passed, 1 failed
 ```
+Output video on [Linkedin](https://www.linkedin.com/posts/saji-john-979416171_aievals-docoreai-llmops-activity-7316514492614332416-xtvZ/)  
+
 💡 If you run this in GitHub Actions, the test will fail the workflow if any test fails. You can modify it to soft-fail with only a warning.  
 
 ## 💡 Customizing Test Cases
